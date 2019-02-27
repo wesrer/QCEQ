@@ -1,0 +1,7 @@
+{
+  "1" : "this is some random data to read",
+  "2" : {
+    "1": "this is nested random data",
+    "2" : ["this", "is", "a", "list", "of", "random", "data"]
+  }
+}
