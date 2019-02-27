@@ -17,7 +17,10 @@ class Application:
                 read_write_operations_object=self.read_write_operations_object)
 
     def on_start_operations(self):
-        self.initialization_operations_object.initialize_gates()
+        gates_dictionary = self.initialization_operations_object.initialize_gates()
+        qubit_matrix = self.initialization_operations_object.initialize_qubits()
+
+        return gates_dictionary, qubit_matrix,
 
     def on_close_operations(self):
         pass
