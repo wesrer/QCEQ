@@ -7,9 +7,11 @@ GatesList = typing.List[str]
 
 
 class ReadWriteOperations:
-    def __init__(self, data_path):
+    def __init__(self,
+                 data_path,
+                 data_interpretation_operations_object):
         self.data_path = data_path
-        self.data_interpretations_object = data_interpretation.DataInterpretationOperations()
+        self.data_interpretations_object = data_interpretation_operations_object
 
     # FIXME: handle read errors
     def read_circuit_from_path(self,
