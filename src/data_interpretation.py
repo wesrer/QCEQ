@@ -1,16 +1,25 @@
 import json
-import types
+import typing
+import pathlib
+import sympy
+
+StringDict = typing.Dict[str]
 
 
 class DataInterpretationOperations:
     def __init__(self):
         pass
 
-    def initialize_gates(self,
-                         gate_json_string:str) -> types.Dict:
-        pass
 
-    def initialize_circuit(self,
-                           circuit_json_string: str) -> types.Dict:
+    @staticmethod
+    def json_to_dict(path_of_file: pathlib.Path) -> typing.Dict:
+
+        with path_of_file.open() as f:
+            data = json.load(f)
+
+        return data
+
+    @staticmethod
+    def parse_string_to_sympy_matrix(string_to_parse: str) -> sympy.ImmutableMatrix:
         pass
 

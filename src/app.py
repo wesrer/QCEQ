@@ -1,5 +1,11 @@
 import sympy
 
-mu = sympy.symbols('mu')
-sympy.pprint((sympy.Integral(sympy.sqrt(1 / mu), mu)), use_unicode=True)
+class Application:
+    def __init__(self):
+        pass
 
+    def on_start_operations(self):
+        pass
+
+    def on_close_operations(self):
+        pass

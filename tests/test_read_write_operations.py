@@ -23,3 +23,15 @@ class TestReadWriteOperations:
             read_write_operations_object.json_to_dict(path_of_file=test_json_path)
 
         assert expected_dict == returned_dict
+
+    def test_read_circuit(self):
+        qubits, gates_list = \
+            read_write_operations_object.read_circuit_from_path(circuit_file_name='test_circuit_1.json')
+
+        expected_gates_list = ["X(0)", "X(1)"]
+
+        assert qubits == 2 and gates_list == expected_gates_list
+
+    #FIXME: test this after implementing, obviously
+    def test_read_gates(self):
+        assert "dummytest" == "dummytest"
