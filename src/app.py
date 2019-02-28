@@ -18,7 +18,7 @@ class Application:
 
     def on_start_operations(self):
         gates_dictionary = self.initialization_operations_object.initialize_gates()
-        qubit_matrix = self.initialization_operations_object.initialize_qubits()
+        qubit_matrix = self.initialization_operations_object.initialize_qubits_with_zero()
 
         return gates_dictionary, qubit_matrix,
 

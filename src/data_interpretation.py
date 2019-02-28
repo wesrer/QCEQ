@@ -3,7 +3,7 @@ import typing
 import pathlib
 import sympy
 
-StringDict = typing.Dict[str]
+StringDict = typing.Dict[str, str]
 
 
 class DataInterpretationOperations:

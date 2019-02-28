@@ -1,10 +1,8 @@
 import sympy
 import typing
-from sympy.physics.quantum import TensorProduct
 
 StringDict = typing.Dict[str, str]
 MatrixDict = typing.Dict[str, sympy.ImmutableMatrix]
-
 
 
 class InitializationOperations:
@@ -30,13 +28,12 @@ class InitializationOperations:
 
         return gate_dictionary
 
-    def initialize_qubits(self,
-                          number_of_qubits: int):
-        list_of_qubits = []
-        for x in range(0, number_of_qubits):
-            list_of_qubits[x] = sympy.ImmutableMatrix([1, 0])
+    def initialize_qubits_with_zero(self,
+                                    number_of_qubits: int):
+        qubit_column_list = [0] * (2 ** number_of_qubits)
+        qubit_column_list[0] = 1
 
-        return TensorProduct(tuple(list_of_qubits))
+        return sympy.ImmutableMatrix(qubit_column_list)
 
 
     def initialize_circuit(self,
