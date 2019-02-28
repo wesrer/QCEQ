@@ -3,6 +3,8 @@ import typing
 import pathlib
 import sympy
 
+import sympy.physics.quantum.qubit as qubit_operations
+
 StringDict = typing.Dict[str, str]
 
 
@@ -26,4 +28,12 @@ class DataInterpretationOperations:
     @staticmethod
     def parse_gate_operation_grammar(string_to_parse):
         pass
+
+    @staticmethod
+    def generate_Dirac_notations_from_qubits(starting_matrix: sympy.ImmutableMatrix):
+        return qubit_operations.matrix_to_qubit(starting_matrix)
+
+
+
+
 
