@@ -21,8 +21,18 @@ class DataInterpretationOperations:
         return data
 
     @staticmethod
+    def convert_string_matrix_row_to_sympy_matrix_row(row):
+        return list(map(lambda x: sympy.sympify(x), row))
+
+    def convert_string_matrix_to_sympy_matrix(self, gate_matrix):
+        return list(map(self.convert_string_matrix_row_to_sympy_matrix_row,
+                        gate_matrix))
+
+    @staticmethod
     def parse_string_to_sympy_matrix(string_to_parse: str) -> sympy.ImmutableMatrix:
-        pass
+        list_of_rows = [[int(i) for i in row if i.isalnum()] for row in string_to_parse.split(";")]
+
+        return sympy.ImmutableMatrix(list_of_rows)
 
     # TODO: add a returntype, which is probably going to a be a list of things
     @staticmethod

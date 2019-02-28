@@ -13,16 +13,13 @@ class InitializationOperations:
 
         self.read_write_operations_object = read_write_operations_object
 
+
+
     def initialize_gates(self) -> MatrixDict:
         gate_dictionary = self.read_write_operations_object.read_gates()
 
-        def convert_string_matrix_row_to_sympy_matrix_row(row):
-            list(map(lambda x: sympy.sympify(x),
-                     row))
-
         for gate, gate_matrix in gate_dictionary.items():
-            gate_matrix = list(map(convert_string_matrix_row_to_sympy_matrix_row,
-                                   gate_matrix))
+            gate_matrix = self.data_interpretation_operations_object.
 
             gate_dictionary[gate] = sympy.ImmutableMatrix(gate_matrix)
 
