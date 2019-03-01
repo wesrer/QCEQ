@@ -36,6 +36,10 @@ class StaticInitializationOperations:
         return sympy.Matrix(qubit_column_list)
 
     @staticmethod
+    def generate_identity_matrix_given_number_of_qubits(number_of_qubits: int):
+        return sympy.eye((2 ** number_of_qubits))
+
+    @staticmethod
     def generate_zero_column_list_for_matrices(number_of_cols):
         return [0] * number_of_cols
 
