@@ -25,4 +25,6 @@ class QubitOperations:
             self.static_initialization_operations_object.generate_identity_matrix_given_number_of_qubits(
                 number_of_qubits=post_gate_qubits)
 
-        return quantum_operations.TensorProduct(pre_gate_identity, gate_matrix, post_gate_qubits)
+        return quantum_operations.TensorProduct(pre_gate_identity, gate_matrix, post_gate_identity)
+
+

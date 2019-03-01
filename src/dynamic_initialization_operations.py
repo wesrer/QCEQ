@@ -1,5 +1,6 @@
 import sympy
 import typing
+from pathlib import Path
 
 StringDict = typing.Dict[str, str]
 MatrixDict = typing.Dict[str, sympy.Matrix]
@@ -9,11 +10,13 @@ class DynamicInitializationOperations:
     def __init__(self,
                  data_interpretation_operations_object,
                  read_write_operations_object,
-                 static_initialization_operations_object):
+                 static_initialization_operations_object,
+                 circuit_parser_object):
         self.data_interpretation_operations_object = data_interpretation_operations_object
 
         self.read_write_operations_object = read_write_operations_object
         self.static_initialization_operations_object = static_initialization_operations_object
+        self.circuit_parser_object = circuit_parser_object
 
     def initialize_gates(self) -> MatrixDict:
         gate_dictionary = self.read_write_operations_object.read_gates()
@@ -34,6 +37,14 @@ class DynamicInitializationOperations:
         return self.data_interpretation_operations_object.generate_Dirac_notations_from_qubit_matrices(qubit_matrix)
 
     def initialize_circuit(self,
-                           circuit_json_string: str) -> typing.Dict:
-        pass
+                           circuit_file_name: Path) -> typing.Dict:
+
+        number_of_qubits, circuit_list = \
+            self.read_write_operations_object.read_circuit_from_path(circuit_file_name=circuit_file_name)
+
+        transformations_list = self.circuit_parser_object.circuit_parser(
+            circuit_list=circuit_list,
+            total_number_of_qubits=number_of_qubits)
+
+        return number_of_qubits, transformations_list
 

@@ -38,11 +38,12 @@ class DataInterpretationOperations:
     def parse_gate_operation_grammar(single_gate_operation_string):
         gate_name, gate_parameters = single_gate_operation_string.split("(")
 
-        gate_parameters = gate_parameters.replace(')', '')
-
+        return {"gate": gate_name,
+                "gate_parameters": gate_parameters.replace(')', '')
+        }
 
     @staticmethod
-    def generate_Dirac_notations_from_qubit_matrices(starting_matrix: sympy.ImmutableMatrix):
+    def generate_Dirac_notations_from_qubit_matrices(starting_matrix: sympy.Matrix):
         return qubit_operations.matrix_to_qubit(starting_matrix)
 
 
