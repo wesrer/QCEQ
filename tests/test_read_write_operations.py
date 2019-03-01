@@ -22,4 +22,4 @@ class TestReadWriteOperations:
 
     #FIXME: test this after implementing, obviously
     def test_read_gates(self):
-        assert "dummytest" == "dummytest"
+        assert True
