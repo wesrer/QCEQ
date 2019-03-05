@@ -40,7 +40,7 @@ class Application:
     def handle_input(self):
         return 'test_circuit.json'
 
-    def run_equation(self):
+    def main(self):
         gates_dictionary = self.on_start_operations()
         circuit_file_name = self.handle_input()
 
@@ -49,8 +49,6 @@ class Application:
 
         qubit_matrix = self.static_initialization_operations_object.initialize_qubit_matrices_with_arbitrary_states(
                 number_of_qubits=number_of_qubits)
-
-
 
     def on_close_operations(self):
         pass

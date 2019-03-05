@@ -1,5 +1,6 @@
 import sympy
 import typing
+import sympy.physics.quantum.gates as quantum_Gates
 
 StringDict = typing.Dict[str, str]
 MatrixDict = typing.Dict[str, sympy.Matrix]
@@ -42,4 +43,7 @@ class StaticInitializationOperations:
     @staticmethod
     def generate_zero_column_list_for_matrices(number_of_cols):
         return [0] * number_of_cols
+
+    @staticmethod
+    def generateGateDictionary():
 
