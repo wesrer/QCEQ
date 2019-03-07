@@ -2,7 +2,6 @@ import json
 import typing
 import pathlib
 import sympy
-import sympy.physics.quantum.qubit as qubit_operations
 
 StringDict = typing.Dict[str, str]
 

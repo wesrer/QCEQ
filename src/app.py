@@ -1,7 +1,6 @@
 import sympy
 from . import data_interpretation
 from . import read_write_operations
-from . import dynamic_initialization_operations
 from . import initialization_operations
 from . import circuit_parser
 from . import quantum_gates
@@ -64,9 +63,3 @@ class Application:
             latex_file_name += '.tex'
 
         return input_file_name, latex_file_name
-
-    def on_start_operations(self):
-        pass
-
-    def on_close_operations(self):
-        pass
