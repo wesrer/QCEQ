@@ -8,23 +8,26 @@ class QubitOperations:
                  static_initialization_operations_object):
         self.static_initialization_operations_object = static_initialization_operations_object
 
-    def gate_to_matrix(self,
-                       gate_matrix: sympy.Matrix,
-                       number_of_qubits_the_gate_operates_on: int,
-                       total_number_of_qubits: int,
-                       lowest_index_qubit_of_gate_operation: int):
+    def qubit_matrix_for_zero(self,
+                              number_of_qubits: int) -> sympy.Matrix:
+        qubit_column_list = self.generate_zero_column_list_for_matrices(2 ** number_of_qubits)
+        qubit_column_list[0] = 1
 
-        pre_gate_identity = \
-            self.static_initialization_operations_object.generate_identity_matrix_given_number_of_qubits(
-                number_of_qubits=(lowest_index_qubit_of_gate_operation - 1))
+        return sympy.Matrix(qubit_column_list)
 
-        post_gate_qubits = \
-            total_number_of_qubits - (lowest_index_qubit_of_gate_operation + number_of_qubits_the_gate_operates_on)
+    def qubit_matrix_for_one(self,
+                             number_of_qubits: int) -> sympy.Matrix:
+        qubit_column_list = self.generate_zero_column_list_for_matrices(2 ** number_of_qubits)
 
-        post_gate_identity = \
-            self.static_initialization_operations_object.generate_identity_matrix_given_number_of_qubits(
-                number_of_qubits=post_gate_qubits)
+        qubit_column_list[(2 ** number_of_qubits) - 1] = 1
 
-        return quantum_operations.TensorProduct(pre_gate_identity, gate_matrix, post_gate_identity)
+        return sympy.Matrix(qubit_column_list)
 
+    @staticmethod
+    def generate_identity_matrix_given_number_of_qubits(number_of_qubits: int):
+        return sympy.eye((2 ** number_of_qubits))
+
+    @staticmethod
+    def generate_zero_column_list_for_matrices(number_of_cols):
+        return [0] * number_of_cols
 

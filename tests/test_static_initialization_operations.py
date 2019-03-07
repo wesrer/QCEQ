@@ -1,10 +1,10 @@
 import sympy
-from src import static_initialization_operations
+from src import initialization_operations
 from . import get_test_data
 
 import sympy.physics.quantum.qubit as qubit_operations
 
-static_initialization_operations_object = static_initialization_operations.StaticInitializationOperations()
+static_initialization_operations_object = initialization_operations.InitializationOperations()
 
 
 class TestStaticInitializationOperations:
@@ -54,7 +54,7 @@ class TestStaticInitializationOperations:
         expected_result = \
             sympy.Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]])
 
-        gate_dictionary = dynamic_initialization_operations_object.initialize_gates()
+        gate_dictionary = dynamic_initialization_operations_object.initialize_gates_from_file()
 
         assert expected_result.equals(gate_dictionary["CX"])
 

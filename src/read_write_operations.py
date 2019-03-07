@@ -13,11 +13,11 @@ class ReadWriteOperations:
 
     # FIXME: handle read errors
     def read_circuit_from_path(self,
-                               circuit_file_name: str = "circuits.json") -> (int, GatesList):
+                               circuit_file_name: str) -> (int, GatesList):
         circuit_path = self.data_path / 'circuits' / circuit_file_name
 
         circuit = self.data_interpretations_object.json_to_dict(path_of_file=circuit_path)
-        return int(circuit_dict["Qubits"]), circuit["Circuit"]
+        return int(circuit["Qubits"]), circuit["Circuit"]
 
     def read_gates(self,
                    gates_file_name:str = 'gates.json') -> typing.Dict:

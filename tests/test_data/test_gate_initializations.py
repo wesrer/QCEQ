@@ -1,4 +1,4 @@
-from src import gate_initializations
+from src import quantum_gates
 
 
 class TestGateInitializations:

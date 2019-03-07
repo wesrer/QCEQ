@@ -1,0 +1,3 @@
+class UndefinedGateException(Exception):
+    pass
+

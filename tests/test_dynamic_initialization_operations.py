@@ -1,6 +1,6 @@
 from src import dynamic_initialization_operations
 from src import data_interpretation
-from src import static_initialization_operations
+from src import initialization_operations
 from src import read_write_operations
 from src import circuit_parser
 from src import qubit_operations
@@ -12,7 +12,7 @@ import sympy.physics.quantum.qubit as qubit_operations
 test_data_path = get_test_data.GetTestData().get_test_data_path()
 
 data_interpretation_operations_object = data_interpretation.DataInterpretationOperations()
-static_initialization_operations_object = static_initialization_operations.StaticInitializationOperations()
+static_initialization_operations_object = initialization_operations.InitializationOperations()
 read_write_operations_object = read_write_operations.ReadWriteOperations(
     data_path=test_data_path,
     data_interpretation_operations_object=data_interpretation_operations_object)
