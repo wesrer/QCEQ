@@ -86,14 +86,12 @@ class CircuitParser:
                 return self.quantum_gates_object.cnot(control_qubit=int(gate_parameters[0]),
                                                       target_qubit=gate_parameters[1],
                                                       quantum_register=quantum_register)
-        except UndefinedGateException:
-            print("The Gate {gate_name} is not defined".format(gate_name))
+            else:
+                raise UndefinedGateException
 
-        except CircuitGrammarException:
-            print("Your circuit has a {gate} with invalid grammar".format(gate_name))
-            print("Expected {expected_qubit_number} parameters, but got only {actual_qubit_number}".format(
-                expected_gate_parameters, len(gate_parameters)))
-
-            # TODO: see if these actually exit the program
+        except CircuitGrammarException as e:
+            pass
+        except UndefinedGateException as e:
+            pass
 
 

@@ -37,7 +37,7 @@ class Application:
         # legacy gates initialization
         # gates_dictionary = self.dynamic_initialization_operations_object.initialize_gates_from_file()
 
-        circuit_file_name = self.handle_input()
+        circuit_file_name, latex_output_name = self.handle_input()
 
         quantum_register, circuit_list = self.initialization_operations_object.initialize_circuit(
             circuit_file_name=circuit_file_name)
@@ -46,10 +46,24 @@ class Application:
             circuit_list=circuit_list,
             quantum_register=quantum_register)
 
-        latex_state_list = self.read_write_operations_object.port_qubit_list_to_latex(transformations_list)
+        latex_string = self.read_write_operations_object.port_qubit_list_to_latex(
+            qubit_state_list=transformations_list)
+
+        self.read_write_operations_object.write_latex_to_file(latex_string=latex_string,
+                                                              latex_file_name=latex_output_name)
 
     def handle_input(self):
-        return 'test_circuit.json', 'test_latex.tex'
+
+        input_file_name = input("name of the circuit to be computed: ")
+        latex_file_name = input("name of the latex file to be generated: ")
+
+        if '.json' not in input_file_name:
+            input_file_name += '.json'
+
+        if '.tex' not in latex_file_name:
+            latex_file_name += '.tex'
+
+        return input_file_name, latex_file_name
 
     def on_start_operations(self):
         pass

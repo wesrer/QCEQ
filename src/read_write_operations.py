@@ -1,5 +1,6 @@
 import typing
 from pathlib import Path
+from sympy import latex
 
 GatesList = typing.List[str]
 
@@ -25,7 +26,21 @@ class ReadWriteOperations:
 
         return self.data_interpretations_object.json_to_dict(path_of_file=gates_file_path)
 
-    def port_qubit_list_to_latex(self):
-        pass
+    @staticmethod
+    def port_qubit_list_to_latex(qubit_state_list):
+        latex_string = "\documentclass[12pt]{article} \n \\begin{document}"
+
+        for state in qubit_state_list:
+            latex_string += "\\begin{formula} \\rightarrow " + latex(state) + "\\end{formula} \smallskip\n \n"
+
+        latex_string += "\\end{document}"
+
+        return latex_string
+
+    def write_latex_to_file(self, latex_string, latex_file_name):
+        write_file_path = self.data_path / 'outputs' / latex_file_name
+
+        with open(write_file_path, 'w') as outputfile:
+            outputfile.write(latex_string)
 
 
