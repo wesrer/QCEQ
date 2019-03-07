@@ -22,11 +22,7 @@ class InitializationOperations:
         quantum_register = self.initialize_quantum_register_with_quantum_states(
             number_of_qubits=number_of_qubits)
 
-        transformations_list = self.circuit_parser_object.circuit_parser(
-            circuit_list=circuit_list,
-            quantum_register=quantum_register)
-
-        return transformations_list
+        return quantum_register, circuit_list
 
     def initialize_quantum_register_with_quantum_states(self,
                                                         number_of_qubits: int):

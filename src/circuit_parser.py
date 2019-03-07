@@ -1,5 +1,6 @@
 from typing import Dict, List
 from sympy.physics.quantum.qubit import Qubit
+from sympy import pprint
 from copy import deepcopy
 
 from src.exceptions import UndefinedGateException, CircuitGrammarException
@@ -40,7 +41,7 @@ class CircuitParser:
         # splitting the arguments inside the Gate operations, and making them a list
         gate_parameters = gate_parameters.replace(')', '').split(",")
 
-        return gate_parameters
+        return gate_name, gate_parameters
 
     # FIXME: this should parse every single gate grammar differently
     def parse_gate_grammar(self,
@@ -60,29 +61,29 @@ class CircuitParser:
                 raise CircuitGrammarException
 
             if gate_name == "h":
-                return self.quantum_gates_object.h(target_qubit=gate_parameters[0],
+                return self.quantum_gates_object.h(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
             elif gate_name == "s":
-                return self.quantum_gates_object.s(target_qubit=gate_parameters,
+                return self.quantum_gates_object.s(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
             elif gate_name == "x":
-                return self.quantum_gates_object.x(target_qubit=gate_parameters,
+                return self.quantum_gates_object.x(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
             elif gate_name == "z":
-                return self.quantum_gates_object.z(target_qubit=gate_parameters,
+                return self.quantum_gates_object.z(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
             elif gate_name == "y":
-                return self.quantum_gates_object.y(target_qubit=gate_parameters,
+                return self.quantum_gates_object.y(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
             elif gate_name == "t":
-                return self.quantum_gates_object.t(target_qubit=gate_parameters,
+                return self.quantum_gates_object.t(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
             elif gate_name == "swap":
-                return self.quantum_gates_object.swap(target_qubit_1=gate_parameters[0],
+                return self.quantum_gates_object.swap(target_qubit_1=int(gate_parameters[0]),
                                                       target_qubit_2=gate_parameters[1],
                                                       quantum_register=quantum_register)
             elif gate_name == "cnot":
-                return self.quantum_gates_object.cnot(control_qubit=gate_parameters[0],
+                return self.quantum_gates_object.cnot(control_qubit=int(gate_parameters[0]),
                                                       target_qubit=gate_parameters[1],
                                                       quantum_register=quantum_register)
         except UndefinedGateException:
