@@ -31,7 +31,11 @@ class ReadWriteOperations:
         latex_string = "\documentclass[12pt]{article} \n \\begin{document}"
 
         for state in qubit_state_list:
-            latex_string += "\\begin{formula} \\rightarrow " + latex(state) + "\\end{formula} \smallskip\n \n"
+            print(state)
+            current_gate = state["current_gate"]
+            current_state = state["state"]
+            latex_string += "\smallskip " + latex(current_gate) + " \smallskip \\begin{formula} \\rightarrow " + \
+                            latex(current_state) + "\\end{formula} \smallskip\n \n"
 
         latex_string += "\\end{document}"
 

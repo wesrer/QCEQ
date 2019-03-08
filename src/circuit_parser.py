@@ -8,6 +8,7 @@ from src import quantum_gates
 
 StringList = List[str]
 QuantumRegisterList = List[Qubit]
+TransformationDict = Dict[str, QuantumRegisterList]
 
 
 class CircuitParser:
@@ -18,9 +19,13 @@ class CircuitParser:
 
     def circuit_parser(self,
                        circuit_list: StringList,
-                       quantum_register: Qubit) -> QuantumRegisterList:
+                       quantum_register: Qubit) -> TransformationDict:
 
-        transformation_list = [deepcopy(quantum_register)]
+        initial_state = {
+            "current_gate": "base",
+            "state": deepcopy(quantum_register)
+        }
+        transformation_list = [initial_state]
 
         for single_gate_transformation in circuit_list:
             gate_name, gate_parameters = self.parse_gate_operation_grammar(single_gate_transformation)
@@ -29,7 +34,12 @@ class CircuitParser:
                                                        gate_parameters=gate_parameters,
                                                        quantum_register=quantum_register)
 
-            transformation_list.append(deepcopy(quantum_register))
+            single_state = {
+                "current_gate": single_gate_transformation,
+                "state": deepcopy(quantum_register)
+            }
+
+            transformation_list.append(single_state)
 
         return transformation_list
 
@@ -61,7 +71,7 @@ class CircuitParser:
                 raise CircuitGrammarException
 
             if gate_name == "h":
-                return self.quantum_gates_object.h(target_qubit=int(gate_parameters[0]),
+                return self.quantum_gates_object.hadamard(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
             elif gate_name == "s":
                 return self.quantum_gates_object.s(target_qubit=int(gate_parameters[0]),
@@ -80,11 +90,11 @@ class CircuitParser:
                                                    quantum_register=quantum_register)
             elif gate_name == "swap":
                 return self.quantum_gates_object.swap(target_qubit_1=int(gate_parameters[0]),
-                                                      target_qubit_2=gate_parameters[1],
+                                                      target_qubit_2=int(gate_parameters[1]),
                                                       quantum_register=quantum_register)
             elif gate_name == "cnot":
                 return self.quantum_gates_object.cnot(control_qubit=int(gate_parameters[0]),
-                                                      target_qubit=gate_parameters[1],
+                                                      target_qubit=int(gate_parameters[1]),
                                                       quantum_register=quantum_register)
             else:
                 raise UndefinedGateException
