@@ -21,6 +21,8 @@ class CircuitParser:
                        circuit_list: StringList,
                        quantum_register: Qubit) -> TransformationDict:
 
+        # the states need to be deepcopied in order to preserve the quantum states after each gate operation
+        # so that they can be transformed into a step in the mathematical output
         initial_state = {
             "current_gate": "base",
             "state": deepcopy(quantum_register)
@@ -72,7 +74,7 @@ class CircuitParser:
 
             if gate_name == "h":
                 return self.quantum_gates_object.hadamard(target_qubit=int(gate_parameters[0]),
-                                                   quantum_register=quantum_register)
+                                                          quantum_register=quantum_register)
             elif gate_name == "s":
                 return self.quantum_gates_object.s(target_qubit=int(gate_parameters[0]),
                                                    quantum_register=quantum_register)
