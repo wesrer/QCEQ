@@ -1,10 +1,10 @@
 import sympy
-from . import data_interpretation
-from . import read_write_operations
-from . import initialization_operations
-from . import circuit_parser
-from . import quantum_gates
-from . import compute_transformations
+import data_interpretation
+import read_write_operations
+import initialization_operations
+import circuit_parser
+import quantum_gates
+import compute_transformations
 from pathlib import Path
 from os.path import dirname, abspath
 
@@ -14,6 +14,7 @@ class Application:
 
         self.source_path = Path(dirname(abspath(__file__))) / '..' / 'data'
 
+        # initialize objects
         self.data_interpretation_object = data_interpretation.DataInterpretationOperations()
         self.gate_initialization_operations = quantum_gates.QuantumGates()
 
@@ -37,7 +38,10 @@ class Application:
         # gates_dictionary = self.dynamic_initialization_operations_object.initialize_gates_from_file()
 
         circuit_file_name, latex_output_name = self.handle_input()
-
+        
+        # Quantum Register is just the number of Qubits in the circuit
+        # Circuit List is a list of Gate Operations in String format, defining the gate and the qubits
+        # the operation is being performed on, eg. "H(0)"
         quantum_register, circuit_list = self.initialization_operations_object.initialize_circuit(
             circuit_file_name=circuit_file_name)
 

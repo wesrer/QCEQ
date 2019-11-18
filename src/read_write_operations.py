@@ -2,13 +2,15 @@ import typing
 from pathlib import Path
 from sympy import latex
 
+# Custom Type returned by this class, a list of Strings
 GatesList = typing.List[str]
-
 
 class ReadWriteOperations:
     def __init__(self,
                  data_path: Path,
                  data_interpretation_operations_object):
+
+        # initializing objects
         self.data_path = data_path
         self.data_interpretations_object = data_interpretation_operations_object
 
@@ -20,6 +22,7 @@ class ReadWriteOperations:
         circuit = self.data_interpretations_object.json_to_dict(path_of_file=circuit_path)
         return int(circuit["Qubits"]), circuit["Circuit"]
 
+    # FIXME: legacy method, not currently being used
     def read_gates(self,
                    gates_file_name:str = 'gates.json') -> typing.Dict:
         gates_file_path = self.data_path / gates_file_name
@@ -33,6 +36,7 @@ class ReadWriteOperations:
         for state in qubit_state_list:
             current_gate = state["current_gate"]
             current_state = state["state"]
+
             latex_string += "\smallskip " + latex(current_gate) + " \smallskip \\begin{formula} \\rightarrow " + \
                             latex(current_state) + "\\end{formula} \smallskip\n \n"
 

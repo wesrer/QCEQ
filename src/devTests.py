@@ -1,4 +1,4 @@
-from . import app
+import app
 
 app_object = app.Application()
 

@@ -3,13 +3,13 @@ from sympy.physics.quantum.qubit import Qubit
 from sympy import pprint
 from copy import deepcopy
 
-from src.exceptions import UndefinedGateException, CircuitGrammarException
-from src import quantum_gates
+from exceptions import UndefinedGateException, CircuitGrammarException
+import quantum_gates
 
+# Custom Types being used in this class
 StringList = List[str]
-QuantumRegisterList = List[Qubit]
+QuantumRegisterList = List[Qubit] # Qubit type defined in sympy
 TransformationDict = Dict[str, QuantumRegisterList]
-
 
 class CircuitParser:
     def __init__(self,
@@ -21,14 +21,19 @@ class CircuitParser:
                        circuit_list: StringList,
                        quantum_register: Qubit) -> TransformationDict:
 
-        # the states need to be deepcopied in order to preserve the quantum states after each gate operation
-        # so that they can be transformed into a step in the mathematical output
+        # The states need to be deepcopied in order to preserve the quantum states after each gate operation.
+        # This is because the progressive mathematical steps in the output are defined by these interim states.
         initial_state = {
             "current_gate": "base",
             "state": deepcopy(quantum_register)
         }
+        
+        # Initialize the transformation list with the initial circuit state, i.e. with the qubits being in their
+        # initial positions
         transformation_list = [initial_state]
 
+        # go through the gates defined in the circuit, perform the transformation, and then add the resulting
+        # state in the transformation list
         for single_gate_transformation in circuit_list:
             gate_name, gate_parameters = self.parse_gate_operation_grammar(single_gate_transformation)
 
@@ -48,9 +53,11 @@ class CircuitParser:
     @staticmethod
     def parse_gate_operation_grammar(single_gate_transformation: str) -> (str, StringList):
 
+        # Since the gates are formatted like "H(0)", the gate name and the qubit list is separated
+        # by "(", which can be used to split the two
         gate_name, gate_parameters = single_gate_transformation.split("(")
 
-        # splitting the arguments inside the Gate operations, and making them a list
+        # Split the arguments inside the Gate operations, and make them a list
         gate_parameters = gate_parameters.replace(')', '').split(",")
 
         return gate_name, gate_parameters
@@ -72,6 +79,7 @@ class CircuitParser:
             if len(gate_parameters) != expected_gate_parameters:
                 raise CircuitGrammarException
 
+            # FIXME: dagger notations and transformations not implemented yet
             if gate_name == "h":
                 return self.quantum_gates_object.hadamard(target_qubit=int(gate_parameters[0]),
                                                           quantum_register=quantum_register)
@@ -100,7 +108,9 @@ class CircuitParser:
                                                       quantum_register=quantum_register)
             else:
                 raise UndefinedGateException
-
+    
+        # FIXME: Error Handling needs to be implemented
+        # FIXME: Cannot Handle customs gate at the moment
         except CircuitGrammarException as e:
             pass
         except UndefinedGateException as e:

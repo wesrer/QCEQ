@@ -20,6 +20,7 @@ class QuantumGates:
           quantum_register: qubit_operations.Qubit) -> qubit_operations.Qubit:
         return qapply(quantum_gates.XGate(target_qubit) * quantum_register)
 
+    # X and X-Dagger gates are the exact same
     def x_dag(self,
               target_qubit: int,
               quantum_register: qubit_operations.Qubit) -> qubit_operations.Qubit:
@@ -31,6 +32,7 @@ class QuantumGates:
           quantum_register: qubit_operations.Qubit) -> qubit_operations.Qubit:
         return qapply(quantum_gates.YGate(target_qubit) * quantum_register)
 
+    # Y and Y-dagger gates are the exact same
     def y_dag(self,
               target_qubit: int,
               quantum_register: qubit_operations.Qubit) -> qubit_operations.Qubit:
@@ -91,6 +93,6 @@ class QuantumGates:
     def cnot(control_qubit: int,
              target_qubit: int,
              quantum_register: qubit_operations.Qubit) -> qubit_operations.Qubit:
-        return qapply(quantum_gates.CNot Gate(control_qubit, target_qubit) * quantum_register)
+        return qapply(quantum_gates.CNotGate(control_qubit, target_qubit) * quantum_register)
 
 

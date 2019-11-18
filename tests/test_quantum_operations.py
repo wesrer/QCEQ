@@ -1,5 +1,5 @@
 import sympy
-from src import dynamic_initialization_operations
+# from src import dynamic_initialization_operations
 from src import data_interpretation
 from src import read_write_operations
 from src import initialization_operations
