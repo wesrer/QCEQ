@@ -1,9 +1,12 @@
 import sympy
+from src import data_interpretation
 from src import initialization_operations
-from . import get_test_data
+from . import  get_test_data
 
 import sympy.physics.quantum.qubit as qubit_operations
 
+data_interpretation_operations_object = data_interpretation.DataInterpretationOperations()
+# read_write_operations_object = read 
 static_initialization_operations_object = initialization_operations.InitializationOperations()
 
 
